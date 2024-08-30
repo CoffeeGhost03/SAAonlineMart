@@ -15,7 +15,7 @@ namespace SAAonlineMart.Controllers
             _logger = logger;
             _context = context;
         }
-
+         
         public IActionResult Index()
         {
             var products = _context.Products.ToList();
