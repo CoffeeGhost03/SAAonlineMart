@@ -14,5 +14,6 @@ namespace SAAonlineMart.Models
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(20, 2)")]
         public decimal ProductPrice { get; set; }
+        public string URL { get; set; }
     }
 }
