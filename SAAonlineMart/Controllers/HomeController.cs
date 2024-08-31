@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SAAonlineMart.Data;
 using SAAonlineMart.Models;
 using System.Diagnostics;
@@ -22,6 +23,55 @@ namespace SAAonlineMart.Controllers
             return View(products);
         }
 
+        [HttpPost]
+        public IActionResult AddToCart(int productId)
+        {
+            var products = _context.Products.ToList();
+            var product = products.Find(p => p.ProductId == productId);
+
+            if (product != null)
+            {
+                var cart = GetCartItems();
+                var cartItem = cart.SingleOrDefault(c => c.CProductId == productId);
+
+                if (cartItem == null)
+                {
+                    cart.Add(new CartItemViewModel
+                    {
+                        CProductId = product.ProductId,
+                        CProductName = product.ProductName,
+                        CProductPrice = product.ProductPrice,
+                        Quantity = 1
+                    });
+                }
+                else
+                {
+                    cartItem.Quantity++;
+                }
+
+                SaveCartItems(cart);
+            }
+
+            return RedirectToAction("Cart");
+        }
+
+        public IActionResult Cart()
+        {
+            var cart = GetCartItems();
+            return View(cart);
+        }
+
+        private List<CartItemViewModel> GetCartItems()
+        {
+            var sessionCart = HttpContext.Session.GetString("Cart");
+            return sessionCart == null ? new List<CartItemViewModel>() : JsonConvert.DeserializeObject<List<CartItemViewModel>>(sessionCart);
+        }
+
+        private void SaveCartItems(List<CartItemViewModel> cart)
+        {
+            HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -37,28 +87,15 @@ namespace SAAonlineMart.Controllers
         
         public IActionResult Details(int id)
         {
-            var product = products.Find(p => p.ProductId == id);
+            
+            var product = _context.Products.FirstOrDefault(p => p.ProductId == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
             return View(product);
         }
 
-        [HttpPost]
-        public IActionResult AddToCart(int productId)
-        {
-            // Simulate adding the product to the cart (you would normally store this in session or a database)
-            var product = products.Find(p => p.ProductId == productId);
-            if (product != null)
-            {
-                // For now, just redirect to the cart view (you'll need to implement this view and logic)
-                return RedirectToAction("Cart");
-            }
-
-            return RedirectToAction("Details", new { id = productId });
-        }
-
-        public IActionResult Cart()
-        {
-            // You would return the cart view here, showing all items added to the cart
-            return View();
-        }
+      
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SAAonlineMart.Data;
 
@@ -11,9 +12,11 @@ using SAAonlineMart.Data;
 namespace SAAonlineMart.Migrations
 {
     [DbContext(typeof(SAAonlineMartContext))]
-    partial class SAAonlineMartContextModelSnapshot : ModelSnapshot
+    [Migration("20240830214519_quad")]
+    partial class quad
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,44 +274,9 @@ namespace SAAonlineMart.Migrations
                         new
                         {
                             ProductId = 1,
-                            ProductName = "Sennheiser Cable",
-                            ProductPrice = 400m,
-                            URL = "https://www.e-piphany.co.za/cdn/shop/files/Sennheiser-Spare-Connecting-Cable-for-HD-465.jpg?v=1691433981"
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            ProductName = "Earpads",
-                            ProductPrice = 500m,
-                            URL = "https://www.e-piphany.co.za/cdn/shop/files/S-SEN-572287.jpg?v=1691438130"
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            ProductName = "Sennheiser HD560S",
-                            ProductPrice = 3000m,
-                            URL = "https://www.e-piphany.co.za/cdn/shop/files/SENNHEISER-HD-560S.jpg?v=1691429397"
-                        },
-                        new
-                        {
-                            ProductId = 4,
-                            ProductName = "Headphone Stand",
-                            ProductPrice = 200m,
-                            URL = "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_27/276751/5252391_800.jpg"
-                        },
-                        new
-                        {
-                            ProductId = 5,
-                            ProductName = "Sennheiser HD559",
-                            ProductPrice = 2900m,
-                            URL = "https://www.e-piphany.co.za/cdn/shop/files/product_detail_x2_desktop_HD_559_Sennheiser_01.jpg?v=1691423669"
-                        },
-                        new
-                        {
-                            ProductId = 6,
-                            ProductName = "Headphone Case",
-                            ProductPrice = 300m,
-                            URL = "https://media.takealot.com/covers_tsins/56002877/5055261857431-3-pdpxl.jpeg"
+                            ProductName = "Shoe",
+                            ProductPrice = 1200.0m,
+                            URL = "https://m.media-amazon.com/images/I/81XOtXza9NS._AC_SX679_.jpg"
                         });
                 });
 
