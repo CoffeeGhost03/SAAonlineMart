@@ -10,40 +10,40 @@
     }
     else
     {
-        <form method="post" asp-action="UpdateCart">
-            <table class="table table-striped">
-                <thead>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Subtotal</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.CProductName</td>
-                            <td>R @item.CProductPrice</td>
-                            <td>
+                        <td>@item.CProductName</td>
+                        <td>R @item.CProductPrice</td>
+                        <td>
+                            <form method="post" asp-action="UpdateCart" style="display:inline;">
                                 <input type="number" name="quantity" value="@item.Quantity" class="form-control" style="width: 80px; display: inline;" min="1" />
                                 <input type="hidden" name="productId" value="@item.CProductId" />
-                            </td>
-                            <td>R @(item.CProductPrice * item.Quantity)</td>
-                            <td>
                                 <button type="submit" class="btn btn-primary btn-sm">Update</button>
-                                <form asp-action="RemoveFromCart" method="post" style="display: inline;">
-                                    <input type="hidden" name="productId" value="@item.CProductId" />
-                                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
-                                </form>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </form>
+                            </form>
+                        </td>
+                        <td>R @(item.CProductPrice * item.Quantity)</td>
+                        <td>
+                            <form method="post" asp-action="RemoveFromCart" style="display:inline;">
+                                <input type="hidden" name="productId" value="@item.CProductId" />
+                                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
         <h3>Total: R @Model.Sum(x => x.CProductPrice * x.Quantity)</h3>
         <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Continue Shopping</a>
