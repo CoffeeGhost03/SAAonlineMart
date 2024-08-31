@@ -18,7 +18,7 @@ public class SAAonlineMartContext : IdentityDbContext<SAAonlineMartUser>
     {
         base.OnModelCreating(builder);
         // Customize the ASP.NET Identity model and override the defaults if needed.
-        // For example, you can rename the ASP.NET Identity table names and more.
+        //you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
         builder.Entity<Products>().HasData(
         new Products { ProductId = 1, ProductName = "Sennheiser Cable", ProductPrice = 400m, URL = "https://www.e-piphany.co.za/cdn/shop/files/Sennheiser-Spare-Connecting-Cable-for-HD-465.jpg?v=1691433981" },
@@ -38,3 +38,51 @@ public class SAAonlineMartContext : IdentityDbContext<SAAonlineMartUser>
 
 }
 
+public static class ApplicationDbInitializer
+{
+    public static async Task SeedAdminUser(IServiceProvider serviceProvider)
+    {
+        var userManager = serviceProvider.GetRequiredService<UserManager<SAAonlineMartUser>>();
+        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+        // Ensure the admin role exists
+        await EnsureRoleExists(roleManager, "Admin");
+
+        // Check if the admin user already exists
+        var adminUser = await userManager.FindByEmailAsync("admin@example.com");
+
+        if (adminUser == null)
+        {
+            // Create the admin user
+            adminUser = new SAAonlineMartUser
+            {
+                UserName = "admin@example.com",
+                Email = "admin@example.com",
+                EmailConfirmed = true
+            };
+
+            string adminPassword = "Admin@123";
+
+            var result = await userManager.CreateAsync(adminUser, adminPassword);
+
+            if (result.Succeeded)
+            {
+                // Assign the user to the admin role
+                await userManager.AddToRoleAsync(adminUser, "Admin");
+            }
+            else
+            {
+                // Handle errors, e.g., log them
+                throw new Exception("Failed to create the admin user");
+            }
+        }
+    }
+
+    private static async Task EnsureRoleExists(RoleManager<IdentityRole> roleManager, string roleName)
+    {
+        if (!await roleManager.RoleExistsAsync(roleName))
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+    }
+}

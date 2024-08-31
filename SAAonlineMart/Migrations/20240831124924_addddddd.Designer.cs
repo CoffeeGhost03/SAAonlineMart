@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SAAonlineMart.Data;
 
@@ -11,9 +12,11 @@ using SAAonlineMart.Data;
 namespace SAAonlineMart.Migrations
 {
     [DbContext(typeof(SAAonlineMartContext))]
-    partial class SAAonlineMartContextModelSnapshot : ModelSnapshot
+    [Migration("20240831124924_addddddd")]
+    partial class addddddd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
