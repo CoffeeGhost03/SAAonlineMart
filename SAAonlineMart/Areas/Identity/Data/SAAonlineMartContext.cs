@@ -17,9 +17,6 @@ public class SAAonlineMartContext : IdentityDbContext<SAAonlineMartUser>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        // Customize the ASP.NET Identity model and override the defaults if needed.
-        //you can rename the ASP.NET Identity table names and more.
-        // Add your customizations after calling base.OnModelCreating(builder);
         builder.Entity<Products>().HasData(
         new Products { ProductId = 1, ProductName = "Sennheiser Cable", ProductPrice = 400m, URL = "https://www.e-piphany.co.za/cdn/shop/files/Sennheiser-Spare-Connecting-Cable-for-HD-465.jpg?v=1691433981" },
         new Products { ProductId = 2, ProductName = "Earpads", ProductPrice = 500m, URL = "https://www.e-piphany.co.za/cdn/shop/files/S-SEN-572287.jpg?v=1691438130" },
@@ -72,7 +69,7 @@ public static class ApplicationDbInitializer
             }
             else
             {
-                // Handle errors, e.g., log them
+                // Handle errors
                 throw new Exception("Failed to create the admin user");
             }
         }

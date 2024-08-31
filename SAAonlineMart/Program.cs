@@ -28,7 +28,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<SAAonlineMartContext>();
-        await context.Database.MigrateAsync(); // Apply any pending migrations
+        await context.Database.MigrateAsync();
 
         // Seed the admin user and roles
         await ApplicationDbInitializer.SeedAdminUser(services);
@@ -40,7 +40,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
