@@ -30,7 +30,11 @@ public class SAAonlineMartContext : IdentityDbContext<SAAonlineMartUser>
         );
     }
 
-public DbSet<SAAonlineMart.Models.Products> Products { get; set; } = default!;
+    public DbSet<SAAonlineMart.Models.Products> Products { get; set; } = default!;
 
-public DbSet<SAAonlineMart.Models.Order> Order { get; set; } = default!;
+    public DbSet<SAAonlineMart.Models.Order> Order { get; set; } = default!;
+
+    public DbSet<SAAonlineMart.Models.Order> OrderItems { get; set; } = default!;
+
 }
+

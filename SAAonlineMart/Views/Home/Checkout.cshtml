@@ -1,5 +1,35 @@
-﻿<div class="container">
+﻿@model OrderViewModel
+
+<div class="container">
     <h1>Checkout Complete</h1>
     <p>Thank you for your purchase! Your order has been processed successfully.</p>
+
+    <h2>Order Details</h2>
+    <p><strong>Order ID:</strong> @Model.OrderId</p>
+    <p><strong>Order Date:</strong> @Model.OrderDate.ToString("dd MMM yyyy")</p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.CProductName</td>
+                    <td>R @item.CProductPrice</td>
+                    <td>@item.Quantity</td>
+                    <td>R @(item.CProductPrice * item.Quantity)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Total Amount: R @Model.TotalAmount</h3>
     <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Continue Shopping</a>
 </div>

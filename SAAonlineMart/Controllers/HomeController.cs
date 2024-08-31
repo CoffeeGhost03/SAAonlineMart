@@ -117,10 +117,35 @@ namespace SAAonlineMart.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Clear the cart after checkout (in a real scenario, you would handle payment and order processing)
+            // Create and save order
+            var order = new Order
+            {
+                OrderDate = DateTime.Now,
+                TotalAmount = cart.Sum(item => item.CProductPrice * item.Quantity),
+                OrderItems = cart.Select(item => new OrderItem
+                {
+                    ProductId = item.CProductId,
+                    Quantity = item.Quantity,
+                    Price = item.CProductPrice
+                }).ToList()
+            };
+
+            _context.Order.Add(order);
+            _context.SaveChanges();
+
+            // Clear the cart after checkout
             HttpContext.Session.Remove("Cart");
-            return View();
+
+            // Redirect to confirmation page with order details
+            return View(new OrderViewModel
+            {
+                OrderId = order.OrderId,
+                Items = cart,
+                TotalAmount = order.TotalAmount,
+                OrderDate = order.OrderDate
+            });
         }
+
 
         private List<CartItemViewModel> GetCartItems()
         {

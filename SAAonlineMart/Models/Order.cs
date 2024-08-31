@@ -5,6 +5,8 @@ namespace SAAonlineMart.Models
 {
     public class Order
     {
+        internal decimal TotalAmount;
+
         [Key]
         public int OrderId { get; set; }
         [Range(1, 999999999)]
@@ -16,5 +18,6 @@ namespace SAAonlineMart.Models
         [DataType(DataType.Date)]
         [Required]
         public DateTime OrderDate { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
     }
 }
