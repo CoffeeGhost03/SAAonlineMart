@@ -1,0 +1,9 @@
+SAAonlineMart
+Overview
+SAAonlineMart is an online marketplace application developed using C#, HTML, CSS, and JavaScript. This project aims to provide a seamless shopping experience for users.
+
+Features
+User Authentication: Secure login and registration system.
+Product Management: Add, edit, and delete products.
+Shopping Cart: Users can add products to their cart and proceed to checkout.
+Order Management: Track and manage orders.
