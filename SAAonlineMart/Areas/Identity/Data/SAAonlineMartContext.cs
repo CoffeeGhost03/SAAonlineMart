@@ -18,7 +18,7 @@ public class SAAonlineMartContext : IdentityDbContext<SAAonlineMartUser>
     {
         base.OnModelCreating(builder);
         // Customize the ASP.NET Identity model and override the defaults if needed.
-        // For example, you can rename the ASP.NET Identity table names and more.
+        //you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
         builder.Entity<Products>().HasData(
         new Products { ProductId = 1, ProductName = "Sennheiser Cable", ProductPrice = 400m, URL = "https://www.e-piphany.co.za/cdn/shop/files/Sennheiser-Spare-Connecting-Cable-for-HD-465.jpg?v=1691433981" },
@@ -61,7 +61,6 @@ public static class ApplicationDbInitializer
                 EmailConfirmed = true
             };
 
-            // You can set a strong password here
             string adminPassword = "Admin@123";
 
             var result = await userManager.CreateAsync(adminUser, adminPassword);
